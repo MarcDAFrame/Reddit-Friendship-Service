@@ -28,28 +28,30 @@ def get_friends(user, red):
 
     else:
         print('user is bad')
-        return None
+        return None, None, None
 
 def main():
     red = Reddit()
 
-    while True:
-        print('getting mentions...')
-        # mentions = red.get_mentions(limit=100)
-        # print(mentions)
-        # for mention in mentions:
-        for mention in red.reddit.inbox.stream():
-            friend, score, common_subreddits, common_categories = get_friends(mention.author, red)
+    print('getting mentions...')
+    # mentions = red.get_mentions(limit=100)
+    # print(mentions)
+    # for mention in mentions:
+    for mention in red.reddit.inbox.stream():
+        print('%s - %s'%(str(mention.author), time.time()))
+        friend, score, common_subreddits, common_categories = get_friends(mention.author, red)
+        
+        if friend is None:
+            mention.reply("You don't have enough data for us to collect. you must have a minimum of 100 comments for me to analyze \n\n\n I am a bot, here is my m̶a̶s̶t̶e̶r̶'̶s̶ coding slave's repository \n https://github.com/MarcDAFrame/Reddit-Friendship-Service")
+        else:
+            mention.reply("You should be friends with /u/%s because you guys had a score of %s. Your common subreddits are %s, your common categories are %s\n\n\nI am a bot, here is my m̶a̶s̶t̶e̶r̶'̶s̶ coding slave's repository \n https://github.com/MarcDAFrame/Reddit-Friendship-Service"%(friend['user'], int(score), ', '.join(common_subreddits), ', '.join(common_categories)))
+        mention.mark_read()
+        # print(friend)
+        # print(score)
+        # print(common_subreddits)
+        # print(common_categories)
 
-            mention.reply("You should be friends with /u/%s because you guys had a score of %s. Your common subreddits are %s, your common categories are %s\n\nI am a bot, here is my m̶a̶s̶t̶e̶r̶'̶s̶ coding slave's repository https://github.com/MarcDAFrame/Reddit-Friendship-Service"%(friend['user'], int(score), ', '.join(common_subreddits), ', '.join(common_categories)))
 
-            # print(friend)
-            # print(score)
-            # print(common_subreddits)
-            # print(common_categories)
-
-
-        time.sleep(5)
 
 
 main()

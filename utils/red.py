@@ -19,17 +19,6 @@ class Reddit():
                             user_agent=config.user_agent)
 
         self.classifier = Classifier()
-        with open('./saves/read.txt') as f:
-            self.read = set(f.read().split(','))
-
-    def mark_read(self, id):
-        self.read.add(id)
-        with open('./saves/read.txt', 'r+') as f:
-            a=f.read()
-            a += '%s,'%id
-            f.write(a)
-
-
 
     def get_user_content(self, user):
         """
@@ -98,20 +87,6 @@ class Reddit():
             authors.add(post.author)
 
         return authors
-
-    def get_mentions(self, limit=25):
-        ments = []
-        # for mention in self.reddit.inbox.mentions(limit=limit):
-        #     if mention.id not in self.read:
-        #         ments.append(mention)
-        #         self.mark_read(mention.id)
-        # for mention in self.reddit.inbox.sent(limit=15):
-        #     ments.append(mention)
-        #     mention.mark_read()
-        #     self.mark_read(mention.id)
-
-        return ments
-
 
     def parse_mentions(self, mentions):
         for m in mentions:
