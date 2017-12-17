@@ -35,9 +35,10 @@ def main():
 
     while True:
         print('getting mentions...')
-        mentions = red.get_mentions(limit=100)
-        print(mentions)
-        for mention in mentions:
+        # mentions = red.get_mentions(limit=100)
+        # print(mentions)
+        # for mention in mentions:
+        for mention in red.reddit.inbox.stream():
             friend, score, common_subreddits, common_categories = get_friends(mention.author, red)
 
             mention.reply("You should be friends with /u/%s because you guys had a score of %s. Your common subreddits are %s, your common categories are %s\n\nI am a bot, here is my m̶a̶s̶t̶e̶r̶'̶s̶ coding slave's repository https://github.com/MarcDAFrame/Reddit-Friendship-Service"%(friend['user'], int(score), ', '.join(common_subreddits), ', '.join(common_categories)))
