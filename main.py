@@ -39,12 +39,13 @@ def main():
         print(mentions)
         for mention in mentions:
             friend, score, common_subreddits, common_categories = get_friends(mention.author, red)
-            mention.reply("You should be friends with %s because you guys had a score of %s. Your common subreddits are %s, your common categories are %s\n\nI am a bot, here is my m̶a̶s̶t̶e̶r̶'̶s̶ coding slave's repository https://github.com/MarcDAFrame/Reddit-Friendship-Service"%(friend['user'], int(score), common_subreddits, common_categories))
 
-            print(friend)
-            print(score)
-            print(common_subreddits)
-            print(common_categories)
+            mention.reply("You should be friends with /u/%s because you guys had a score of %s. Your common subreddits are %s, your common categories are %s\n\nI am a bot, here is my m̶a̶s̶t̶e̶r̶'̶s̶ coding slave's repository https://github.com/MarcDAFrame/Reddit-Friendship-Service"%(friend['user'], int(score), ', '.join(common_subreddits), ', '.join(common_categories)))
+
+            # print(friend)
+            # print(score)
+            # print(common_subreddits)
+            # print(common_categories)
 
 
         time.sleep(5)
