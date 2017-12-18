@@ -38,9 +38,9 @@ def main():
     # print(mentions)
     # for mention in mentions:
     for mention in red.reddit.inbox.stream():
-        print('%s - %s'%(str(mention.author), time.strftime('%X')))
         if "/u/friend-bot" not in mention.body:
             continue
+        print('%s - %s'%(str(mention.author), time.strftime('%X')))
         friend, score, common_subreddits, common_categories = get_friends(mention.author, red)
         
         if friend is None:
