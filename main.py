@@ -30,7 +30,7 @@ def get_friends(user, red):
         print('user is bad')
         return None, None, None
 
-def main():
+def main():        
     red = Reddit()
 
     print('getting mentions...')
@@ -38,7 +38,7 @@ def main():
     # print(mentions)
     # for mention in mentions:
     for mention in red.reddit.inbox.stream():
-        print('%s - %s'%(str(mention.author), time.time()))
+        print('%s - %s'%(str(mention.author), time.strftime('%X')))
         friend, score, common_subreddits, common_categories = get_friends(mention.author, red)
         
         if friend is None:
@@ -53,5 +53,9 @@ def main():
 
 
 
-
-main()
+while True: #this is in an attempt to combat pipe breaking errors
+    try:
+        main()
+    except Exception as e:
+        print(str(e))
+        pass

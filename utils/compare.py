@@ -7,27 +7,28 @@ def assign_score(obj1, obj2):
     common_categories = []
     # print(type(obj1), type(obj2))
     # print(obj1['user'], obj2['user'])
-
-    for key, value in obj1['subs'].items():
-        if key in obj2['subs'].keys():
-            common_subreddits.append(key)
-            d = abs(int(obj1['subs'][key]*100) - int(obj2['subs'][key]*100))
-            if d == 0:
-                score += 100
-            else:
-                score += 50/d
-    # print(type(obj2['categories']))
-    for key, value in obj1['categories'].items():
-        if key in obj2['categories'].keys() and obj1['categories'][key] != 0 and obj2['categories'][key] != 0:
-            common_categories.append(key)
-            d = abs(int(obj1['categories'][key]*100) - int(obj2['categories'][key]*100))
-            if d == 0:
-                score += 100
-            else:
-                score += 50/d
-    
-    # print(score)
-    return score, common_subreddits, common_categories
+    if obj1['user'] != obj2['user']:
+        for key, value in obj1['subs'].items():
+            if key in obj2['subs'].keys():
+                common_subreddits.append(key)
+                d = abs(int(obj1['subs'][key]*100) - int(obj2['subs'][key]*100))
+                if d == 0:
+                    score += 100
+                else:
+                    score += 50/d
+        # print(type(obj2['categories']))
+        for key, value in obj1['categories'].items():
+            if key in obj2['categories'].keys() and obj1['categories'][key] != 0 and obj2['categories'][key] != 0:
+                common_categories.append(key)
+                d = abs(int(obj1['categories'][key]*100) - int(obj2['categories'][key]*100))
+                if d == 0:
+                    score += 100
+                else:
+                    score += 50/d
+        
+        # print(score)
+        return score, common_subreddits, common_categories
+    return 0, [], []
     
 
 def compare(df, obj):
